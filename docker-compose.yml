@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  collector:
+    build: ./collector
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      - default
+      - shared-net   # сеть, где уже висит postgres-main и остальные твои боты
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    env_file: .env
+    # ПОРТ НАРУЖУ НЕ ПРОБРОШЕН НАРОЧНО.
+    # Сервис доступен только другим контейнерам в сети shared-net,
+    # по внутреннему DNS-имени "api" на порту 8000 (см. ARCHITECTURE.md).
+    # Если когда-нибудь понадобится внешний доступ — добавь сюда
+    # "ports: - \"8000:8000\"" или повесь reverse proxy, тоже подключённый
+    # к shared-net.
+    networks:
+      - default
+      - shared-net
+
+networks:
+  shared-net:
+    external: true
