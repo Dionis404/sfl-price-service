@@ -4,7 +4,10 @@ services:
   collector:
     build: ./collector
     restart: unless-stopped
-    env_file: .env
+    environment:
+      SFL_API_KEY: ${SFL_API_KEY}
+      DATABASE_URL: ${DATABASE_URL}
+      POLL_INTERVAL_SECONDS: ${POLL_INTERVAL_SECONDS:-300}
     networks:
       - default
       - shared-net   # сеть, где уже висит postgres-main и остальные твои боты
@@ -12,7 +15,9 @@ services:
   api:
     build: ./api
     restart: unless-stopped
-    env_file: .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
     # ПОРТ НАРУЖУ НЕ ПРОБРОШЕН НАРОЧНО.
     # Сервис доступен только другим контейнерам в сети shared-net,
     # по внутреннему DNS-имени "api" на порту 8000 (см. ARCHITECTURE.md).
