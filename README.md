@@ -1,3 +1,10 @@
+> ⚠️ **Сервис архивирован.** Сбор цен маркетплейса и API цен переехали в
+> [sfl-collector](https://github.com/Dionis404/sfl-collector): там задача
+> `collector/jobs/marketplace.py` пишет в те же таблицы
+> (`sfl_resource_prices` + новая `flower_price_history`), а единый `sfl-api`
+> отдаёт эндпоинты `/sfl/prices/*`. Этот репозиторий оставлен для истории —
+> новых правок и деплоев не будет.
+
 # Как это устроено
 
 ## Общая схема

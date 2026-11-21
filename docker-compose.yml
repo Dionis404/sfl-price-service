@@ -14,6 +14,10 @@ services:
 
   api:
     build: ./api
+    # Фиксированное имя: сайт и другие сервисы обращались к контейнеру
+    # sfl-price-service-api-1 — после переезда на sfl-api это имя больше
+    # не используется, но пусть будет предсказуемым, пока сервис доживает.
+    container_name: sfl-price-api
     restart: unless-stopped
     environment:
       DATABASE_URL: ${DATABASE_URL}
